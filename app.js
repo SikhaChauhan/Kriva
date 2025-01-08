@@ -11,7 +11,7 @@ const adminRoute = require('./routes/adminRoute');
 const userRoute = require('./routes/userRoute');
 const productRoute = require('./routes/productRoute');
 
-
+require('dotenv').config();
 
 
 app.use(express.static(path.join(__dirname,'public')));
