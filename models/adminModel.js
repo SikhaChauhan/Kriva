@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('');
+
 
 const adminSchema = mongoose.Schema({
     fullName: {
@@ -11,7 +11,7 @@ const adminSchema = mongoose.Schema({
     password: String,
     products: {
         type: Array,
-        default: []
+        // default: []
     },
     picture: String,
     gstIn: String
