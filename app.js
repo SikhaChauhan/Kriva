@@ -1,9 +1,14 @@
-const express = require('expressconst flash = require('connect-flash');');
+const express = require('express');
+const flash = require('connect-flash');
 const app = express();
 const path = require('path');
 const connectDb = require('./config/db'); 
 const expressSession = require('express-session');
-
+const adminRoute = require('./routes/adminRoute');
+const userRoute = require('./routes/userRoute');
+const productRoute = require('./routes/productRoute');
+const indexRoute = require('./routes/indexRoute');
+require('dotenv').config();
 
 
 app.use(express.json());
@@ -16,16 +21,12 @@ app.use(
     })
 );
 
-const adminRoute = require('./routes/adminRoute');
-const userRoute = require('./routes/userRoute');
-const productRoute = require('./routes/productRoute');
 
-require('dotenv').config();
-
-
+app.use(flash());
 app.use(express.static(path.join(__dirname,'public')));
 app.set('view engine', 'ejs');
 
+app.use('/', indexRoute);
 app.use('/admin', adminRoute);
 app.use('/user', userRoute);
 app.use('/product', productRoute);
