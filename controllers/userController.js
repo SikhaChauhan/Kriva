@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const {generateToken} = require('../utils/token');
+const flash = require('connect-flash');
 
 module.exports.registerUser = async function(req, res){
     try {
@@ -42,4 +43,20 @@ module.exports.registerUser = async function(req, res){
             error: error.message,
         });
     }
+}
+
+module.exports.loginUser = async function(req, res){
+    let {email, password} = req.body;
+    let user = await userModel.findOne({email});
+    if(!user) return res.send("Email or password is incorrect");
+    bcrypt.compare(password, user.password, (req, result)=>{
+        if(result){
+            let token = generateToken(user);
+            res.cookie('token', token);
+            res.send("User logged in successfully!");
+        }
+        else{
+            return res.send("Email or password is incorrect");
+        }
+    })
 }

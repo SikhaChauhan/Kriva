@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const {generateToken} = require('../utils/token');
-const {registerUser} = require('../controllers/userController');
+const {registerUser, loginUser} = require('../controllers/userController');
 
 
 
@@ -14,6 +14,8 @@ router.post('/register', registerUser);
 router.get('/', (req,res)=>{
     res.send("Hey");
 });
+
+router.post('/login', loginUser);
 
 module.exports = router;
 

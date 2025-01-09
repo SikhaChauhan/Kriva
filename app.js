@@ -1,11 +1,20 @@
-const express = require('express');
+const express = require('expressconst flash = require('connect-flash');');
 const app = express();
 const path = require('path');
 const connectDb = require('./config/db'); 
+const expressSession = require('express-session');
+
 
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(
+    expressSession({
+        resave: false,
+        saveUninitialized: false,
+        secret: process.env.EXPRESS_SESSION_SECRET,
+    })
+);
 
 const adminRoute = require('./routes/adminRoute');
 const userRoute = require('./routes/userRoute');
